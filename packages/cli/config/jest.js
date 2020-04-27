@@ -29,6 +29,9 @@ if (fs.existsSync('jest.config.js')) {
     moduleNameMapper: {
       '\\.(css|less|scss|sss|styl)$': require.resolve('jest-css-modules'),
     },
+    transform: {
+      '\\.esm\\.js$': require.resolve('esm'),
+    },
   };
 
   // Use src/setupTests.ts as the default location for configuring test env
