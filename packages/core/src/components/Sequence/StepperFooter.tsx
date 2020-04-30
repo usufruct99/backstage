@@ -15,7 +15,7 @@
  */
 import React, { FC, ReactNode } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
-import { StepActions } from './Sequence';
+import { StepActions } from './Step';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -65,28 +65,26 @@ const BackBtn: FC<{
   </Button>
 );
 
-export type SequenceFooterProps = {
+export type StepperFooterProps = {
   stepIndex: number;
   setStepIndex: React.Dispatch<React.SetStateAction<number>>;
   stepArray: number[];
   setStepArray: React.Dispatch<React.SetStateAction<number[]>>;
   length: number;
   actions: StepActions;
-  onSequenceStepChange?: (old: number, updated: number) => void;
+  onStepperStepChange?: (old: number, updated: number) => void;
   children?: ReactNode;
-  className: string;
 };
 
-const SequenceFooter: FC<SequenceFooterProps> = ({
+const StepperFooter: FC<StepperFooterProps> = ({
   stepIndex,
   setStepIndex,
   stepArray,
   setStepArray,
   length,
-  onSequenceStepChange,
+  onStepperStepChange,
   actions,
   children,
-  className,
 }) => {
   const classes = useStyles();
 
@@ -94,8 +92,8 @@ const SequenceFooter: FC<SequenceFooterProps> = ({
     if (callback) {
       callback();
     }
-    if (onSequenceStepChange) {
-      onSequenceStepChange(stepIndex, newIndex);
+    if (onStepperStepChange) {
+      onStepperStepChange(stepIndex, newIndex);
     }
 
     setStepIndex(newIndex);
@@ -119,7 +117,7 @@ const SequenceFooter: FC<SequenceFooterProps> = ({
   };
 
   return (
-    <div className={`${classes.root} ${className}`}>
+    <div className={classes.root}>
       {[undefined, true].includes(actions.showBack) && stepIndex !== 0 && (
         <BackBtn
           text={actions.backText}
@@ -151,4 +149,4 @@ const SequenceFooter: FC<SequenceFooterProps> = ({
   );
 };
 
-export default SequenceFooter;
+export default StepperFooter;

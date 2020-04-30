@@ -16,9 +16,9 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import { wrapInTestApp } from '@backstage/test-utils';
-import Sequence, { StepType } from './Sequence';
+import Stepper, { StepType } from './Stepper';
 
-describe('Sequence', () => {
+describe('Stepper', () => {
   let steps: StepType[];
 
   beforeEach(() => {
@@ -45,7 +45,7 @@ describe('Sequence', () => {
 
   it('Handles nextStep property', () => {
     const rendered = render(
-      wrapInTestApp(<Sequence orientation="horizontal" steps={steps} />),
+      wrapInTestApp(<Stepper orientation="horizontal" steps={steps} />),
     );
     fireEvent.click(rendered.getByText('Next'));
     expect(rendered.getByText('step1')).toBeInTheDocument();
@@ -59,7 +59,7 @@ describe('Sequence', () => {
 
   it('Shows controls and content when going back to first step', () => {
     const rendered = render(
-      wrapInTestApp(<Sequence orientation="horizontal" steps={steps} />),
+      wrapInTestApp(<Stepper orientation="horizontal" steps={steps} />),
     );
     fireEvent.click(rendered.getByText('Next'));
     expect(rendered.getByText('step1')).toBeInTheDocument();
@@ -95,9 +95,7 @@ describe('Sequence', () => {
     ];
 
     const rendered = render(
-      wrapInTestApp(
-        <Sequence orientation="horizontal" steps={nextTextSteps} />,
-      ),
+      wrapInTestApp(<Stepper orientation="horizontal" steps={nextTextSteps} />),
     );
     expect(rendered.getByText('Step0Next')).toBeInTheDocument();
     fireEvent.click(rendered.getByText('Step0Next'));
